@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const CLAUDE_API_URL = `${window.location.origin}/api/claude`;
+const CLAUDE_API_URL = '/api/claude';
 
 export const getFortune = async (name, birthDate, question, selectedCards = []) => {
   let prompt = `You are a mystical fortune teller. Provide a fortune based on the following information:\n\nName: ${name}\nBirth Date: ${birthDate}\nQuestion: ${question}\n`;

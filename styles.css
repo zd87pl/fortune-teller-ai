@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    color: #1d1d1f;
+}
+
+h1, h2, h3 {
+    font-weight: 300;
+}
+
+.bg-gray-50 {
+    background-color: #f5f5f7;
+}
+
+.text-indigo-600 {
+    color: #5856d6;
+}
+
+.bg-indigo-600 {
+    background-color: #5856d6;
+}
+
+.hover\:bg-indigo-700:hover {
+    background-color: #4a49b7;
+}
+
+button {
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Subtle gradient background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ffffff 0%, #f5f5f7 100%);
+    z-index: -1;
+}
+
+/* Subtle floating animation for spiritual elements */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.floating-element {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Add subtle star-like elements to the background */
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #5856d6;
+    opacity: 0.5;
+    border-radius: 50%;
+    animation: twinkle 4s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* Add 50 stars */
+.stars-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.stars-container::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(2px 2px at calc(100% * var(--x)) calc(100% * var(--y)), #5856d6 50%, transparent 0);
+    background-size: calc(100vw / 10) calc(100vh / 10);
+    opacity: 0.3;
+}
+
+/* Subtle pulsating effect for buttons */
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(88, 86, 214, 0.4); }
+    50% { box-shadow: 0 0 0 15px rgba(88, 86, 214, 0); }
+}
+
+button {
+    animation: pulse 3s infinite;
+}
+
+/* Smooth transition for content */
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+}
+
+/* Avatar container styles */
+#avatar-container {
+    width: 256px;
+    height: 256px;
+    margin: 0 auto 2rem;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+model-viewer {
+    width: 100%;
+    height: 100%;
+    --poster-color: transparent;
+    background-color: transparent;
+}
+
+model-viewer::part(default-progress-bar) {
+    display: none;
+}

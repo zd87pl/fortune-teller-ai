@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.landing-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1c1c1e 0%, #2c2c2e 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 50px 160px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 130px 80px, #ffffff, rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0));
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  animation: twinkle 5s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
+
+.content {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.glass-ball {
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4) 30%, rgba(255, 255, 255, 0.1) 100%);
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+h1 {
+  font-size: 28px;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 16px;
+  color: #b0b0b0;
+  margin-bottom: 30px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+input[type="text"],
+.react-datepicker__input-container input {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font-size: 16px;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+input[type="text"]::placeholder,
+.react-datepicker__input-container input::placeholder {
+  color: #b0b0b0;
+}
+
+input[type="text"]:focus,
+.react-datepicker__input-container input:focus {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.radio-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.radio-group input[type="radio"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #b0b0b0;
+  border-radius: 50%;
+  margin-right: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.radio-group input[type="radio"]:checked {
+  border-color: #007aff;
+  background-color: #007aff;
+  box-shadow: inset 0 0 0 4px #1c1c1e;
+}
+
+button {
+  background-color: #007aff;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.magical-symbols {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.symbol {
+  position: absolute;
+  opacity: 0.1;
+}
+
+.moon {
+  top: 10%;
+  left: 10%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 15px 15px 0 0 #1c1c1e;
+}
+
+.sun {
+  top: 80%;
+  right: 10%;
+  width: 60px;
+  height: 60px;
+  background: #ffd700;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #ffd700;
+}
+
+.zodiac {
+  bottom: 15%;
+  left: 15%;
+  width: 80px;
+  height: 80px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3Cpath d='M50 5 L50 95 M5 50 L95 50 M14.64 14.64 L85.36 85.36 M14.64 85.36 L85.36 14.64' stroke='%23ffffff' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: contain;
+  opacity: 0.2;
+}

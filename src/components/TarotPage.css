@@ -1,0 +1,81 @@
+.tarot-content {
+  max-width: 800px;
+  width: 90%;
+  padding: 40px;
+}
+
+.tarot-cards-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+  min-height: 400px;
+}
+
+.tarot-card {
+  width: 200px;
+  height: 350px;
+  perspective: 1000px;
+  margin: 0 -30px;
+}
+
+.tarot-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.tarot-card.flipped .tarot-card-inner {
+  transform: rotateY(180deg);
+}
+
+.tarot-card-front,
+.tarot-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tarot-card-front {
+  background-color: #4a0e4e;
+  background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.tarot-card-back {
+  background-color: white;
+  transform: rotateY(180deg);
+  background-size: cover;
+  background-position: center;
+}
+
+.tarot-reading {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 40px;
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 1.6;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .tarot-content {
+    padding: 20px;
+  }
+
+  .tarot-card {
+    width: 150px;
+    height: 262px;
+  }
+
+  .tarot-cards-container {
+    min-height: 300px;
+  }
+}

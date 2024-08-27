@@ -12,6 +12,7 @@
     }
   ],
   "routes": [
+    { "src": "/api/claude", "dest": "/api/claude/index.js" },
     { "src": "/api/(.*)", "dest": "/api/$1" },
     { "src": "^/static/(.*)", "dest": "/static/$1" },
     { "handle": "filesystem" },

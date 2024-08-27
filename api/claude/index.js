@@ -9,7 +9,8 @@ export default async function handler(req, res) {
         {
           headers: {
             'Content-Type': 'application/json',
-            'X-API-Key': process.env.REACT_APP_CLAUDE_API_KEY
+            'x-api-key': process.env.REACT_APP_CLAUDE_API_KEY,
+            'anthropic-version': '2023-06-01'
           }
         }
       );
@@ -17,20 +18,16 @@ export default async function handler(req, res) {
     } catch (error) {
       console.error('Error proxying request to Claude API:', error);
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         res.status(error.response.status).json({
           error: 'API Error',
           message: error.response.data.error || 'An error occurred while processing your request'
         });
       } else if (error.request) {
-        // The request was made but no response was received
         res.status(500).json({
           error: 'Network Error',
           message: 'No response received from the API'
         });
       } else {
-        // Something happened in setting up the request that triggered an Error
         res.status(500).json({
           error: 'Request Error',
           message: error.message || 'An error occurred while setting up the request'

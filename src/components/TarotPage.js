@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../CommonStyles.css';
 import './TarotPage.css';
 import tarotDeck from '../data/tarotDeck';
+import { getFortune } from '../api/claudeApi';
 
 const TarotPage = () => {
   const [userData, setUserData] = useState(null);
@@ -10,17 +11,22 @@ const TarotPage = () => {
   const [selectedCards, setSelectedCards] = useState([]);
   const [flippedCards, setFlippedCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const storedUserData = localStorage.getItem('userData');
     if (storedUserData) {
       setUserData(JSON.parse(storedUserData));
+    } else {
+      setError('User data not found. Please complete the user information form first.');
     }
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setError('');
+    setReading('');
     const shuffled = [...tarotDeck].sort(() => 0.5 - Math.random());
     const selected = shuffled.slice(0, 3);
     setSelectedCards(selected);
@@ -40,40 +46,24 @@ const TarotPage = () => {
   };
 
   const generateReading = async (cards) => {
-    const cardNames = cards.map(card => card.name).join(', ');
-    const prompt = `User: ${userData?.name} (Birth Date: ${new Date(userData?.birthDate).toLocaleDateString()}, Sex: ${userData?.sex}) 
-    Question: ${question}
-    Tarot Cards: ${cardNames}
-    
-    Please provide a detailed tarot reading based on the user's information, their question, and the drawn tarot cards. 
-    Incorporate mystical and spiritual elements in your reading, and offer guidance and insights related to the user's question.`;
+    if (!userData || !userData.name || !userData.birthDate) {
+      setError('Please provide your name and birth date before requesting a tarot reading.');
+      return;
+    }
+
+    const cardNames = cards.map(card => card.name);
 
     try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer YOUR_CLAUDE_API_KEY', // Replace with your actual Claude API key
-        },
-        body: JSON.stringify({
-          model: 'claude-2',
-          messages: [
-            { role: 'system', content: 'You are a mystical tarot reader. Provide a reading based on the user\'s information and drawn cards.' },
-            { role: 'user', content: prompt }
-          ],
-          max_tokens: 1000
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to get reading from Claude');
-      }
-
-      const data = await response.json();
-      setReading(data.choices[0].message.content);
+      const tarotReading = await getFortune(
+        userData.name,
+        userData.birthDate,
+        question,
+        cardNames
+      );
+      setReading(tarotReading);
     } catch (error) {
       console.error('Error generating reading:', error);
-      setReading('I apologize, but the mystical energies are clouded at the moment. Please try again later.');
+      setError(error.message);
     }
   };
 
@@ -82,6 +72,11 @@ const TarotPage = () => {
       <div className="stars"></div>
       <div className="content tarot-content">
         <h1>Tarot Reading</h1>
+        {error && (
+          <div className="error-message">
+            <p>{error}</p>
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
           <textarea
             placeholder="Ask your question"
@@ -89,7 +84,7 @@ const TarotPage = () => {
             onChange={(e) => setQuestion(e.target.value)}
             required
           ></textarea>
-          <button type="submit" disabled={isLoading}>
+          <button type="submit" disabled={isLoading || !!error}>
             {isLoading ? 'Consulting the cards...' : 'Reveal My Tarot Reading'}
           </button>
         </form>

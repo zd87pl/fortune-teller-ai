@@ -30,10 +30,16 @@ export const getFortune = async (name, birthDate, question, selectedCards = []) 
       return response.data.content[0].text.trim();
     } else {
       console.error('Unexpected API response structure:', response.data);
-      return 'I apologize, but the mystical energies are clouded at the moment. Please try again later.';
+      throw new Error('Unexpected response from the mystical realm');
     }
   } catch (error) {
     console.error('Error fetching fortune from Claude API:', error);
-    return 'I apologize, but the mystical energies are clouded at the moment. Please try again later.';
+    if (error.response && error.response.data) {
+      throw new Error(error.response.data.message || 'An error occurred while fetching your fortune.');
+    } else if (error.request) {
+      throw new Error('The connection to the mystical realm was lost. Please check your internet connection and try again.');
+    } else {
+      throw new Error(error.message || 'An unforeseen obstacle has appeared in the mystical path. Please try again later.');
+    }
   }
 };

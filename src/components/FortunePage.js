@@ -41,7 +41,7 @@ const FortunePage = () => {
       setFortune(fortuneText);
     } catch (error) {
       console.error('Error getting fortune:', error);
-      setError('An error occurred while fetching your fortune. Please try again later.');
+      setError(error.message);
     } finally {
       setLoading(false);
     }
